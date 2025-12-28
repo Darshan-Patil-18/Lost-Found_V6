@@ -9,16 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js"></script>
-    <style>
-        .fade-in { animation: fadeIn 0.5s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .highlight { background-color: #fef08a; padding: 2px 4px; border-radius: 2px; }
-        .timer-warning { color: #ef4444; font-weight: bold; }
-        .success-animation { animation: bounce 0.6s ease-in-out; }
-        @keyframes bounce { 0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); } 40%, 43% { transform: translate3d(0,-30px,0); } 70% { transform: translate3d(0,-15px,0); } 90% { transform: translate3d(0,-4px,0); } }
-        .slide-up { animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    </style>
+<link rel="stylesheet" href="style.css">
 
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -274,13 +265,26 @@
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                     </div>
-
+                
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
                         <textarea name="description" rows="4" required placeholder="Describe the item in detail (color, brand, distinctive features, etc.)"
                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"></textarea>
                     </div>
-
+                
+                    <!-- NEW: Photo Upload Section -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-camera mr-2 text-green-600"></i>Upload Photo (Optional)
+                        </label>
+                        <input type="file" name="itemPhoto" accept="image/*" id="foundItemPhoto"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                               onchange="previewImage(event, 'foundPreview')">
+                        <div id="foundPreview" class="mt-3 hidden">
+                            <img src="" alt="Preview" class="max-w-xs rounded-lg shadow-md">
+                        </div>
+                    </div>
+                
                     <div class="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Location Found</label>
@@ -293,17 +297,18 @@
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                     </div>
-
+                
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Your Contact Information</label>
                         <input type="text" name="contactInfo" required placeholder="Phone number or email"
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
-
+                
                     <button type="submit" class="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium">
                         <i class="fas fa-check mr-2"></i>Submit Found Item Report
                     </button>
                 </form>
+                
             </div>
         </div>
 
@@ -344,13 +349,26 @@
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500">
                         </div>
                     </div>
-
+                
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
                         <textarea name="description" rows="4" required placeholder="Describe the item in detail (color, brand, distinctive features, etc.)"
                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"></textarea>
                     </div>
-
+                
+                    <!-- NEW: Photo Upload Section -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-camera mr-2 text-red-600"></i>Upload Photo (Optional)
+                        </label>
+                        <input type="file" name="itemPhoto" accept="image/*" id="lostItemPhoto"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500"
+                               onchange="previewImage(event, 'lostPreview')">
+                        <div id="lostPreview" class="mt-3 hidden">
+                            <img src="" alt="Preview" class="max-w-xs rounded-lg shadow-md">
+                        </div>
+                    </div>
+                
                     <div class="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Last Seen Location</label>
@@ -363,17 +381,18 @@
                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500">
                         </div>
                     </div>
-
+                
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Your Contact Information</label>
                         <input type="text" name="contactInfo" required placeholder="Phone number or email"
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500">
                     </div>
-
+                
                     <button type="submit" class="w-full bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium">
                         <i class="fas fa-search mr-2"></i>Submit Lost Item Report
                     </button>
                 </form>
+                
             </div>
         </div>
 
@@ -423,28 +442,42 @@
         </div>
 
         <!-- Profile Page -->
-        <div id="profile-page" class="hidden fade-in">
-            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
-                <div class="text-center mb-8">
-                    <div class="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-user text-3xl text-blue-600"></i>
-                    </div>
-                    <h2 class="text-2xl font-bold text-gray-800" id="profileName">Student Profile</h2>
-                    <p class="text-gray-600" id="profileEnrollment">Enrollment ID: </p>
-                    <p class="text-gray-600" id="profileDepartment">Department: </p>
-                </div>
+<div id="profile-page" class="hidden fade-in">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+        <div class="text-center mb-8">
+            <div class="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user text-3xl text-blue-600"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800" id="profileName">Student Profile</h2>
+            <p class="text-gray-600" id="profileEnrollment">Enrollment ID: </p>
+            <p class="text-gray-600" id="profileDepartment">Department: </p>
+        </div>
 
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">My Reported Items</h3>
-                        <div id="userItems" class="space-y-4">
-                            <!-- User's items will be populated here -->
-                        </div>
-                    </div>
+        <div class="space-y-6">
+            <!-- My Reported Items Section -->
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-clipboard-list mr-2"></i>My Reported Items
+                </h3>
+                <div id="userItems" class="space-y-4">
+                    <!-- User's active items will be populated here -->
+                </div>
+            </div>
+
+            <!-- NEW: History Section -->
+            <div>
+                <button onclick="toggleHistory()" class="w-full flex items-center justify-between text-lg font-semibold text-gray-800 mb-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <span><i class="fas fa-history mr-2"></i>History (Returned Items)</span>
+                    <i id="historyToggleIcon" class="fas fa-chevron-down transition-transform"></i>
+                </button>
+                <div id="historyItems" class="space-y-4 hidden">
+                    <!-- Returned items will be populated here -->
                 </div>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 mt-16">
@@ -480,434 +513,7 @@
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 
-    <script>
-        // Global variables
-        let currentUser = null;
-        let foundItems = [];
-        let lostItems = [];
-        let returnedItems = [];
-
-        // Student enrollment database
-        const studentDatabase = [
-            {enrollment: '231130146001', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146002', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146003', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146004', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146005', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146006', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146007', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146008', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146009', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146010', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146011', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146012', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146013', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146014', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146015', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146016', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146017', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146018', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146019', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146020', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146021', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146022', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146023', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146024', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146025', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146026', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146027', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '231130146028', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146001', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146002', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146003', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146004', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146005', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146006', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146007', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146008', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146009', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146010', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146011', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146012', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146013', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146014', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146015', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146016', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146017', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146018', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146019', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146020', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146021', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146022', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146023', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146024', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146025', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146026', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146027', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'},
-            {enrollment: '241133146028', college: 'Sal College of Engineering', branch: 'CSE', sem: '5'}
-        ];
-
-        // Initialize the application
-        function init() {
-            // Set today's date as default for date inputs
-            const today = new Date().toISOString().split('T')[0];
-            const dateInputs = document.querySelectorAll('input[type="date"]');
-            dateInputs.forEach(input => input.value = today);
-        }
-
-        // Enrollment verification
-        function verifyEnrollment(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const enrollmentId = formData.get('enrollmentId');
-            const studentName = formData.get('studentName');
-
-            // Check if enrollment exists in database
-            const studentRecord = studentDatabase.find(student => student.enrollment === enrollmentId);
-            
-            if (studentRecord) {
-                // Auto-fill the details
-                document.getElementById('branch').value = studentRecord.branch;
-                document.getElementById('college').value = studentRecord.college;
-                document.getElementById('semester').value = studentRecord.sem;
-                
-                // Hide verify button and show confirmation buttons
-                document.getElementById('verifyBtn').classList.add('hidden');
-                document.getElementById('verificationButtons').classList.remove('hidden');
-                
-                // Store temporary data
-                window.tempUserData = {
-                    enrollmentId,
-                    name: studentName,
-                    branch: studentRecord.branch,
-                    college: studentRecord.college,
-                    semester: studentRecord.sem
-                };
-            } else {
-                alert('Enrollment ID not found. Please contact the administrator.');
-            }
-        }
-
-        function confirmDetails(isCorrect) {
-            if (isCorrect) {
-                currentUser = window.tempUserData;
-                
-                // Show success animation
-                const confirmBtn = event.target;
-                confirmBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Verified!';
-                confirmBtn.classList.add('success-animation');
-
-                setTimeout(() => {
-                    document.getElementById('enrollment-page').classList.add('hidden');
-                    document.getElementById('navbar').classList.remove('hidden');
-                    showPage('home');
-                    updateProfile();
-                    updateStatistics();
-                }, 1000);
-            } else {
-                // Show contact information
-                alert('Please contact:\nHOD: hod.cse@salcollege.edu\nCoordinator: coordinator.cse@salcollege.edu\nPhone: +91-XXXXXXXXXX');
-            }
-        }
-
-        // Navigation functions
-        function showPage(pageId) {
-            // Hide all pages
-            const pages = ['home-page', 'report-found-page', 'report-lost-page', 'search-page', 'profile-page'];
-            pages.forEach(page => {
-                document.getElementById(page).classList.add('hidden');
-            });
-
-            // Show selected page
-            document.getElementById(pageId + '-page').classList.remove('hidden');
-            
-            // Close profile menu if open
-            document.getElementById('profileMenu').classList.add('hidden');
-
-            // Load page-specific content
-            if (pageId === 'home') {
-                updateStatistics();
-            } else if (pageId === 'search') {
-                searchItems();
-            } else if (pageId === 'profile') {
-                loadUserItems();
-            }
-        }
-
-        function toggleProfileMenu() {
-            const menu = document.getElementById('profileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function updateProfile() {
-            if (currentUser) {
-                document.getElementById('profileName').textContent = currentUser.name;
-                document.getElementById('profileEnrollment').textContent = `Enrollment ID: ${currentUser.enrollmentId}`;
-                document.getElementById('profileDepartment').textContent = `Branch: ${currentUser.branch} | Semester: ${currentUser.semester}`;
-                loadUserItems();
-            }
-        }
-
-        function updateStatistics() {
-            const totalSubmissions = foundItems.length + lostItems.length;
-            document.getElementById('totalSubmissions').textContent = totalSubmissions;
-            document.getElementById('totalFound').textContent = foundItems.length;
-            document.getElementById('totalLost').textContent = lostItems.length;
-            document.getElementById('totalReturned').textContent = returnedItems.length;
-        }
-
-        function loadUserItems() {
-            if (!currentUser) return;
-            
-            const userFoundItems = foundItems.filter(item => item.reporterId === currentUser.enrollmentId);
-            const userLostItems = lostItems.filter(item => item.reporterId === currentUser.enrollmentId);
-            const allUserItems = [...userFoundItems, ...userLostItems];
-            
-            const container = document.getElementById('userItems');
-            
-            if (allUserItems.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8">
-                        <i class="fas fa-inbox text-4xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-600">You haven't reported any items yet.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = allUserItems.map(item => `
-                <div class="bg-gray-50 rounded-lg p-4 border">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium ${
-                            item.type === 'found' 
-                                ? 'bg-green-100 text-green-800' 
-                                : 'bg-red-100 text-red-800'
-                        }">
-                            ${item.type === 'found' ? 'Found' : 'Lost'}
-                        </span>
-                        <div class="flex space-x-2">
-                            <button onclick="markAsReturned('${item.id}', '${item.type}')" 
-                                    class="text-green-600 hover:text-green-800 transition-colors" title="Mark as Returned">
-                                <i class="fas fa-check-circle"></i>
-                            </button>
-                            <button onclick="deleteItem('${item.id}', '${item.type}')" 
-                                    class="text-red-600 hover:text-red-800 transition-colors" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <h4 class="font-semibold text-gray-800">${item.name}</h4>
-                    <p class="text-sm text-gray-600 mb-2">${item.description}</p>
-                    <div class="text-xs text-gray-500">
-                        <span><i class="fas fa-map-marker-alt mr-1"></i>${item.location}</span>
-                        <span class="ml-4"><i class="fas fa-calendar mr-1"></i>${new Date(item.date).toLocaleDateString()}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function markAsReturned(itemId, itemType) {
-            if (confirm('🎉 Hurray! You helped someone find their item! Mark as returned?')) {
-                let item;
-                if (itemType === 'found') {
-                    item = foundItems.find(i => i.id == itemId);
-                    foundItems = foundItems.filter(i => i.id != itemId);
-                } else {
-                    item = lostItems.find(i => i.id == itemId);
-                    lostItems = lostItems.filter(i => i.id != itemId);
-                }
-                
-                if (item) {
-                    item.returnedDate = new Date();
-                    returnedItems.push(item);
-                }
-                
-                loadUserItems();
-                updateStatistics();
-                showSuccessModal('🎉 Amazing! You made someone\'s day by helping them find their item!');
-            }
-        }
-
-        function deleteItem(itemId, itemType) {
-            if (confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
-                if (itemType === 'found') {
-                    foundItems = foundItems.filter(item => item.id != itemId);
-                } else {
-                    lostItems = lostItems.filter(item => item.id != itemId);
-                }
-                loadUserItems();
-                updateStatistics();
-                showSuccessModal('Item deleted successfully!');
-            }
-        }
-
-        // Item submission functions
-        function submitFoundItem(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const item = {
-                id: Date.now(),
-                type: 'found',
-                category: formData.get('category'),
-                name: formData.get('itemName'),
-                description: formData.get('description'),
-                location: formData.get('location'),
-                date: formData.get('dateFound'),
-                contact: formData.get('contactInfo'),
-                reporter: currentUser.name,
-                reporterId: currentUser.enrollmentId,
-                timestamp: new Date()
-            };
-
-            foundItems.push(item);
-            updateStatistics();
-            showSuccessModal('Found item reported successfully! Others can now see it when searching.');
-            event.target.reset();
-        }
-
-        function submitLostItem(event) {
-            event.preventDefault();
-            
-            const formData = new FormData(event.target);
-            const item = {
-                id: Date.now(),
-                type: 'lost',
-                category: formData.get('category'),
-                name: formData.get('itemName'),
-                description: formData.get('description'),
-                location: formData.get('location'),
-                date: formData.get('dateLost'),
-                contact: formData.get('contactInfo'),
-                reporter: currentUser.name,
-                reporterId: currentUser.enrollmentId,
-                timestamp: new Date()
-            };
-
-            lostItems.push(item);
-            updateStatistics();
-            showSuccessModal('Lost item reported successfully! You\'ll be notified if someone finds it.');
-            event.target.reset();
-        }
-
-        // Search functionality
-        function searchItems() {
-            const query = document.getElementById('searchQuery')?.value.toLowerCase() || '';
-            const category = document.getElementById('searchCategory')?.value || '';
-            const type = document.getElementById('searchType')?.value || '';
-
-            let allItems = [...foundItems, ...lostItems];
-
-            // Filter items
-            if (query) {
-                allItems = allItems.filter(item => 
-                    item.name.toLowerCase().includes(query) || 
-                    item.description.toLowerCase().includes(query)
-                );
-            }
-
-            if (category) {
-                allItems = allItems.filter(item => item.category === category);
-            }
-
-            if (type) {
-                allItems = allItems.filter(item => item.type === type);
-            }
-
-            displaySearchResults(allItems, query);
-        }
-
-        function highlightText(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query})`, 'gi');
-            return text.replace(regex, '<mark class="bg-yellow-200 px-1 rounded">$1</mark>');
-        }
-
-        function displaySearchResults(items, query = '') {
-            const resultsContainer = document.getElementById('searchResults');
-            
-            if (items.length === 0) {
-                resultsContainer.innerHTML = `
-                    <div class="col-span-full text-center py-12">
-                        <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-600">No items found matching your search criteria.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            resultsContainer.innerHTML = items.map(item => `
-                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="px-3 py-1 rounded-full text-sm font-medium ${
-                            item.type === 'found' 
-                                ? 'bg-green-100 text-green-800' 
-                                : 'bg-red-100 text-red-800'
-                        }">
-                            ${item.type === 'found' ? 'Found' : 'Lost'}
-                        </span>
-                        <span class="text-sm text-gray-500">${item.category}</span>
-                    </div>
-                    
-                    <h3 class="text-lg font-bold text-gray-800 mb-2">${highlightText(item.name, query)}</h3>
-                    <p class="text-gray-600 mb-4">${highlightText(item.description, query)}</p>
-                    
-                    <div class="space-y-2 text-sm text-gray-500">
-                        <div><i class="fas fa-map-marker-alt mr-2"></i>${item.location}</div>
-                        <div><i class="fas fa-calendar mr-2"></i>${new Date(item.date).toLocaleDateString()}</div>
-                        <div><i class="fas fa-user mr-2"></i>Reported by ${item.reporter}</div>
-                    </div>
-                    
-                    <button onclick="contactReporter('${item.contact}')" 
-                            class="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                        <i class="fas fa-envelope mr-2"></i>Contact Reporter
-                    </button>
-                </div>
-            `).join('');
-        }
-
-
-
-        function contactReporter(contact) {
-            alert(`Contact the reporter at: ${contact}`);
-        }
-
-        // Modal functions
-        function showSuccessModal(message) {
-            document.getElementById('successMessage').textContent = message;
-            document.getElementById('successModal').classList.remove('hidden');
-            document.getElementById('successModal').classList.add('flex');
-        }
-
-        function closeSuccessModal() {
-            document.getElementById('successModal').classList.add('hidden');
-            document.getElementById('successModal').classList.remove('flex');
-        }
-
-        function logout() {
-            currentUser = null;
-            foundItems = [];
-            lostItems = [];
-            document.getElementById('navbar').classList.add('hidden');
-            document.getElementById('home-page').classList.add('hidden');
-            document.getElementById('enrollment-page').classList.remove('hidden');
-            document.getElementById('enrollmentForm').reset();
-        }
-
-        // Close profile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const profileMenu = document.getElementById('profileMenu');
-            const profileButton = event.target.closest('button[onclick="toggleProfileMenu()"]');
-            
-            if (!profileButton && !profileMenu.contains(event.target)) {
-                profileMenu.classList.add('hidden');
-            }
-        });
-
-        // Initialize the application
-        init();
-    </script>
 </body>
 </html>
